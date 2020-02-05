@@ -5,6 +5,8 @@
 #include "queue/queue.h"
 
 #define MAX_SIZE 100
+
+
 int main()
 {
     vector         * v  = vectorInit(5,"1");
