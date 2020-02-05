@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedList.h"
+#include "../linkedList/LinkedList.h"
 #include "stack.h"
 
 stackController *  createStack(uint8_t* data)

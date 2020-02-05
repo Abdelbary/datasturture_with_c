@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedList.h"
+#include "../linkedList/LinkedList.h"
 
 #define MALLOC_ERROR  -1
 #define ONE_NODE       1

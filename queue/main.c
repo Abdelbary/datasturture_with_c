@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedList/LinkedList.h"
-#include "queue/queue.h"
+#include "linkedlist/LinkedList.h"
 #include "stack/stack.h"
+#include "queue/queue.h"
 
 #define MAX_SIZE 100
 int main()
