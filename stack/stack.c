@@ -3,21 +3,19 @@
 #include "../linkedList/LinkedList.h"
 #include "stack.h"
 
-stackController *  createStack(uint8_t* data)
+stackController *  createStack()
 {
     /*
     *   initiate stack controller
     *   initiate stack linked list
-    *   make first stacked iteam 
     *   make sp point to the stack top
-    *   intiate stack size to 1
+    *   intiate stack size to 0
     *   return stackController
     */
     stackController * stack = (stackController *) malloc(sizeof(stackController));
     stack->linkedListHead =  vectorInit(ONE_NODE,ZERO);
-    addNode(stack->linkedListHead,data);
     stack->sp = stack->linkedListHead->next_node;
-    stack->size = ONE_NODE;
+    stack->size = ZERO;
     return stack;
 }
 
@@ -60,5 +58,20 @@ uint8_t pop(stackController *Controller,
     }
     
 
-    return returnValue;
+uint8_t top(stackController *Controller)
+{  
+    /*
+    *   if stack size is 0 return stack is empty
+    *   else load sp data to function data 
+    *   delete its node from stack
+    *   move sp down
+    */
+    if(Controller->size == 0)
+    {
+        fprintf(stderr,"deletNode function ERROR  <STACK IS EMPTY>\n");
+    }
+    else
+    {
+    return Controller->sp->data;
+    }
 }

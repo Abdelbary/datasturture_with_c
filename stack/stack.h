@@ -17,8 +17,8 @@ vector *linkedListHead;
 }stackController;
 
 
-stackController * createStack(uint8_t* data);
+stackController * createStack();
 void push(stackController *Controller, uint8_t* data);
 uint8_t pop(stackController *Controller, uint8_t* data);
-
+uint8_t top(stackController *Controller);
 #endif // STACK_H_INCLUDED

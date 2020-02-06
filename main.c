@@ -3,11 +3,53 @@
 #include "linkedList/LinkedList.h"
 #include "queue/queue.h"
 #include "stack/stack.h"
-
 #define MAX_SIZE 100
-int main()
+#define TRUE     1
+#define FALSE    0
+
+char buffer[MAX_SIZE];
+
+uint8_t balanced_parentheses_Application()
 {
-    vector         * v  = vectorInit(5,"1");
+    uint8_t balanced = TRUE; 
+   fgets(buffer,MAX_SIZE,stdin);
+   
+   /*
+   *    remove end of line caharcter if exist
+   */
+   int i = ZERO;
+   while(buffer[i] != '\n')i++;
+   buffer[i] = 0;
+
+   //create stack and start check 
+   stackController * stack =  createStack();
+
+   i = ZERO;
+    uint8_t data;
+    while(buffer[i])
+    {
+        switch (buffer[i])
+        {
+        case '{':
+        case '[':
+        case '(':
+            push(stack,&buffer[i]);    
+        break;
+        case '}':
+        case ']':
+        case ')':
+            data = top(stack);
+            if(data == buffer[i])
+        break;
+        default:
+            break;
+        }
+    }
+}
+
+void testFun()
+{
+vector         * v  = vectorInit(5,"1");
     //gstr_stackController * st = createStack();
     addNode(v,"150");
     addNode(v,"15");
@@ -17,7 +59,7 @@ int main()
     if(pos != -1)
     printf("found it at %d\n" ,pos );
     print(v);
-    stackController * stack = createStack("5");
+    stackController * stack = createStack();
 
     uint8_t x[100];
         printf("-------------------\n");
@@ -52,5 +94,10 @@ int main()
     printf("%s\n",x); 
     print(queue->linkedListHead);
 
-    free(v);    return 0;
+    free(v);  
+}
+int main()
+{
+    balanced_parentheses_Application();
+    return 0;
 }
