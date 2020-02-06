@@ -3,7 +3,7 @@
 #include "queue.h"
 #define  FIRST_ELEMENT 1
 
-queueController *  createQueue(uint8_t* data)
+queueController *  createQueue()
 {
     /*
     *   create initiale node [base node]
@@ -15,9 +15,8 @@ queueController *  createQueue(uint8_t* data)
 
     queueController * queue = (queueController *) malloc(sizeof(queueController));
     queue->linkedListHead =  vectorInit(ONE_NODE,ZERO);
-    addNode(queue->linkedListHead,data);
     queue->front = queue->linkedListHead->next_node;
-    queue->size = 1;
+    queue->size = ZERO;
     return queue;
 }
 

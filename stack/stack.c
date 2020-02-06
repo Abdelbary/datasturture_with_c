@@ -39,11 +39,11 @@ void pop(stackController *Controller,uint8_t* data)
     *   move sp down
     */
     int returnValue = SUCESS ; 
-    if(Controller->size == 0)
+    if(Controller->size == ZERO)
     {
         fprintf(stderr,"deletNode function ERROR  <STACK IS EMPTY>\n");
         returnValue = ENd_Of_STACK;
-        *data = 0;
+        *data = ZERO;
     }
     else
     {

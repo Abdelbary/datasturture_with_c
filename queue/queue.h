@@ -19,7 +19,7 @@ vector *linkedListHead;
 }queueController;
 
 
-queueController * createQueue(uint8_t* data);
+queueController * createQueue();
 void enqueue(queueController *Controller, uint8_t* data);
 uint8_t dequeue(queueController *Controller, uint8_t* data);
 
