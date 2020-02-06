@@ -8,17 +8,17 @@
 #define ZERO 0
 #define SUCESS         1
 #define ENd_Of_STACK  -1
-
+#define QUEUE_IS_EMPTY 0
 typedef struct ST_stackInfo
 {
+uint8_t  size;
 vector * sp;
-int size;
 vector *linkedListHead;
 }stackController;
 
 
 stackController * createStack();
 void push(stackController *Controller, uint8_t* data);
-uint8_t pop(stackController *Controller, uint8_t* data);
-uint8_t top(stackController *Controller);
+void pop(stackController *Controller, uint8_t* data);
+void top(stackController *Controller,uint8_t* data);
 #endif // STACK_H_INCLUDED

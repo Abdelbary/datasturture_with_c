@@ -14,7 +14,7 @@
 typedef struct ST_queueInfo
 {
 vector * front;
-int size;
+uint8_t size;
 vector *linkedListHead;
 }queueController;
 

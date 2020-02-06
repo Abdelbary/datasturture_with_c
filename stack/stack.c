@@ -30,8 +30,7 @@ void push(stackController *Controller, uint8_t* data)
     (Controller->size)++;
 }
 
-uint8_t pop(stackController *Controller,
- uint8_t* data)
+void pop(stackController *Controller,uint8_t* data)
 {  
     /*
     *   if stack size is 0 return stack is empty
@@ -48,17 +47,16 @@ uint8_t pop(stackController *Controller,
     }
     else
     {
-    strcpy(data,(Controller->sp->data));
+    data = Controller->sp->data;
     //printf("%s\n",(Controller->sp->data));
 
     Controller->sp = Controller->sp->prev_node;
     deleteNode(Controller->linkedListHead,Controller->size);
     (Controller->size)--;
-
     }
-    
+}
 
-uint8_t top(stackController *Controller)
+void top(stackController *Controller,uint8_t* data)
 {  
     /*
     *   if stack size is 0 return stack is empty
@@ -70,8 +68,6 @@ uint8_t top(stackController *Controller)
     {
         fprintf(stderr,"deletNode function ERROR  <STACK IS EMPTY>\n");
     }
-    else
-    {
-    return Controller->sp->data;
-    }
+        *data = *(Controller->sp->data);
+
 }

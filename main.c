@@ -8,48 +8,70 @@
 #define FALSE    0
 
 char buffer[MAX_SIZE];
+uint8_t balanced = TRUE; 
 
 uint8_t balanced_parentheses_Application()
 {
-    uint8_t balanced = TRUE; 
+    int i = ZERO;
+
    fgets(buffer,MAX_SIZE,stdin);
    
    /*
    *    remove end of line caharcter if exist
    */
-   int i = ZERO;
    while(buffer[i] != '\n')i++;
    buffer[i] = 0;
 
    //create stack and start check 
-   stackController * stack =  createStack();
-
-   i = ZERO;
+    stackController * stack =  createStack();
+    i = ZERO;
     uint8_t data;
-    while(buffer[i])
+    while(buffer[i] && balanced)
     {
         switch (buffer[i])
         {
         case '{':
         case '[':
         case '(':
-            push(stack,&buffer[i]);    
+            push(stack,&buffer[i]);
         break;
         case '}':
         case ']':
         case ')':
-            data = top(stack);
-            if(data == buffer[i])
+            if(stack->size == 0) balanced = FALSE;
+            else{
+                top(stack,&data);
+                printf("main2>>%d\n",data);
+                if((buffer[i] == ')' && data != '(') ||
+                (buffer[i] == ']' && data != '[')  ||
+                (buffer[i] == '}' && data != '{') )
+                {
+                    balanced = FALSE;
+                }
+                else 
+                {
+                pop(stack,&data);
+                //printf("hi\n");  
+                }
+            }
         break;
         default:
-            break;
+            /*not a pratacess*/
+        break;
         }
+        i++;
     }
+
+    if(stack->size > 0 || !balanced || buffer[i] != ZERO)
+        balanced = FALSE;
+    
+    if(balanced) printf("BALANCE\n");
+    else printf("UNBALANCE\n");
 }
 
 void testFun()
 {
-vector         * v  = vectorInit(5,"1");
+    vector * v  = vectorInit(5,"1");
     //gstr_stackController * st = createStack();
     addNode(v,"150");
     addNode(v,"15");
