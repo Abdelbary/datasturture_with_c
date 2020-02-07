@@ -48,7 +48,7 @@ uint8_t dequeue(queueController *Controller,
     }
     else
     {
-    strcpy(data,(Controller->front->data));
+    data = (Controller->front->data);
     //printf("%s\n",(Controller->sp->data));
 
     Controller->front = Controller->front->next_node;
@@ -60,4 +60,9 @@ uint8_t dequeue(queueController *Controller,
     
 
     return returnValue;
+}
+
+void front(queueController *Controller,uint8_t* data)
+{ 
+    data = (Controller->front->data);
 }

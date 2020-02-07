@@ -9,12 +9,41 @@
 #define MAX_SIZE 100
 #define TRUE     1
 #define FALSE    0
+#define BASE_TEN 10
+#define ZERO_ASSCI '0'
+
+/**
+ * main application
+ * balanced_parentheses_Application()-->function that 
+ * 1-use stack to check for matched prantacess
+ * 2-use 2 arrays to evaluate expression
+ * --the function call getExpression() internally to evaluate the expression givin
+ * 
+ * testFun()--> function to test queue stack and linked list
+ */
+
+
+/*
+*   buffer to hold the input data
+*   oprands array to hold input oprads 
+*   oprations array to hold the oprations needed to be carried
+*/
 
 char buffer[MAX_SIZE];
-uint8_t balanced = TRUE; 
 uint16_t oprands[MAX_SIZE];
 uint8_t oprations[MAX_SIZE];
 
+/*variable used to check for balance prantacess*/
+uint8_t balanced = TRUE; 
+
+
+
+/**
+ * Description: function get expression to be evaluated and push it into two array [oprations,oprands]
+ * @param indx: index to the buffer array to get the current character
+ * @param oprationsIndx: current opration indx in the opration array
+ * @param oprandsIndx: current oprands indx in the oprands array
+ */
 void getExpression(uint8_t indx,uint8_t * oprationsIndx , uint8_t* oprandsIndx)
 {
     uint8_t number = ZERO;
@@ -25,7 +54,7 @@ void getExpression(uint8_t indx,uint8_t * oprationsIndx , uint8_t* oprandsIndx)
     {
         while(isdigit(buffer[indx]))
         {
-            number = number * 10 + (buffer[indx] - '0');
+            number = number * BASE_TEN + (buffer[indx] - ZERO_ASSCI);
             indx++;
         }
         indx--;/*will incremnet it in the checkBalance function*/
@@ -41,7 +70,12 @@ void getExpression(uint8_t indx,uint8_t * oprationsIndx , uint8_t* oprandsIndx)
     oprationsIndx = &oprationCounter;
 }
 
-uint8_t balanced_parentheses_Application()
+/**
+ * Description: function take expression from user vrify that it has balanced prantacess 
+ * and evaluate it's value  
+ * @param void
+ */
+void balanced_parentheses_Application()
 {
     queueController * oprandsQueue = createQueue();
     queueController * oprationsQueue = createQueue();
@@ -130,10 +164,14 @@ uint8_t balanced_parentheses_Application()
             oprandsIndx++;
             oprationIndx++;
         }
-        printf("%d\n",accumlator);
+        printf("expression resulte = %d\n",accumlator);
     } 
 }
-
+/**
+ * Description: function used to test linked list, stack and queue with various test cases and 
+ * logging to the terminal for debugging.
+ * @param void:
+ */
 void testFun()
 {
     vector * v  = vectorInit(5,"1");
@@ -185,14 +223,11 @@ void testFun()
 }
 int main()
 {
+    /*
+    *   uncomment to use testFun function to test stack, queue and linked list
+    */
+
     balanced_parentheses_Application();
-    int i = 0 ,j = 0 , k = 0 ; 
-    while(oprands[j] || oprations[k])
-    {
-      printf(" %d ",oprands[j++]);
-      printf("%c ",oprations[k++]);
-      printf("%d ",oprands[j++]);
-      i++;
-    }
+    //testFun();
     return 0;
 }
