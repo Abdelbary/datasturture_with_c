@@ -1,22 +1,22 @@
-#include "LinkedList.h"
+ #include "LinkedList.h"
 
-vector * vectorInit(uint8_t size, uint8_t init_value[])
+LinkedList * LinkedListNodeInit(uint8_t size, uint8_t init_value[])
 {
 
     ///create first node (head)
-    vector *head = (vector *)malloc(sizeof(vector));
-    head->data = init_value; ///initial value
-    ///create a pointer to current node
-    vector *current = head;
+    LinkedList *ls = (LinkedList*)malloc(sizeof(LinkedList));
+    ls->head = (LinkedListNode *)malloc(sizeof(LinkedListNode));
+    ls->head->data = init_value; ///initial value
+   ///create a pointer to current node
+    LinkedListNode *current = ls->head; 
     /*while there still node to create
       1)create new node
       2)make current node next pointer point to it
-      3)change current pointer to point to it
-     */
-
+      3)change current pointer to point to it */
+   
     while(--size){
         ///create new node
-        vector * node = (vector *)malloc(sizeof(vector));
+        LinkedListNode * node = (LinkedListNode *)malloc(sizeof(LinkedListNode));
 
         ///check for any errors
         if(node ==NULL){
@@ -28,7 +28,7 @@ vector * vectorInit(uint8_t size, uint8_t init_value[])
 
         ///set data
         node->data = init_value;
-
+ 
         ///link generated node to linked list
         current->next_node = node;
         node->prev_node = current;
@@ -37,27 +37,28 @@ vector * vectorInit(uint8_t size, uint8_t init_value[])
         current = current->next_node;
     }
     ///link last node to the head
-    current->next_node = head;
+    current->next_node = ls->head;
 
 
     ///make first node point to the last
-    head->prev_node = current;
+    ls->head->prev_node = current;
     ///return linked list head
-    return head;
+    return ls;
 }
 
-uint8_t print(vector * head){
+uint8_t print(LinkedList *ls){
     ///check for invalid parameters
-    if(head == NULL){
+    if(ls == NULL){
         fprintf(stderr,"print function invalid input <passing a null pointer as first parameter>\n");
         return -1;
     }
 
 
-    ///create a copy of vector to process int
-    vector * current = head;
+    ///create a copy of LinkedListNode to process int
+    LinkedListNode *current = ls->head;
+    
 
-    ///init loop counter and loop throw the vector
+    ///init loop counter and loop throw the LinkedListNode
     int index = 0;
     do{
         printf("value of %d is %s \n",index,current->data);
@@ -65,24 +66,24 @@ uint8_t print(vector * head){
         current = current->next_node;
         ///increase counter
         ++index;
-    }while(current != head);
+    }while(current != ls->head);
 
 
 }
 
-vector * addNode(vector *v,uint8_t *data)
+LinkedListNode * addNode( LinkedList *ls,uint8_t *data)
 {
 
   ///check for invalid parameters
-    if(v == NULL){
+    if( ls == NULL){
         fprintf(stderr,"addNode function invalid input <passing a null pointer as first parameter>\n");
     }
 
-    ///copy vector pointer
-    vector * head = v;
-    vector * tail = v->prev_node;
+    ///copy LinkedListNode pointer
+     LinkedListNode * head = ls->head; 
+     LinkedListNode * tail = ls->tail;
     ///create new node
-    vector * node = (vector *)malloc(sizeof(vector));
+     LinkedListNode * node = ( LinkedListNode *)malloc(sizeof( LinkedListNode));
     if(node == NULL){
             fprintf(stderr,"out of memory \n");
             return NULL;
@@ -102,32 +103,27 @@ vector * addNode(vector *v,uint8_t *data)
 
 
 
-int find(vector * v, uint8_t* value){
-    ///check for invalid parameters
-    if(v == NULL){
-        fprintf(stderr,"find function invalid input <passing a null pointer as first parameter>\n");
-        return -1;
-    }
-
-    vector *head =v;
+int find( LinkedList *ls, uint8_t* value)
+{
     ///using do while to escape the first node at the first iteration then check on it in while condition
     int index = 0 ;
+    LinkedListNode* current = ls->head;
     do{
-        if(strcmp(value,v->data) == 0){
+        if(strcmp(value,current->data) == 0){
             return index;
         }
-        v= v->next_node;
+        current= current->next_node;
         ++index;
-    }while(v != head);
+    }while(current != ls->head);
 
     return -1;
 }
 
 
 
-int deleteNode(vector * v,int pos){
+int deleteNode(LinkedList * ls,int pos){
     ///check for invalid parameters
-    if(v == NULL){
+    if(ls == NULL){
         fprintf(stderr,"deletNode function invalid input <passing a null pointer as first parameter>\n");
         return -1;
     }
@@ -136,7 +132,7 @@ int deleteNode(vector * v,int pos){
         return -1 ;
     }
     ///create a temp pointer
-    vector *current =v;
+     LinkedListNode *current =ls->head;
 
     int index = 0 ;
     do{
@@ -153,7 +149,7 @@ int deleteNode(vector * v,int pos){
         current = current->next_node;
         ++index;
         ///check if we reached the end of the list
-    }while(current != v);
+    }while(current != ls->head);
 
     return -1;
 }
